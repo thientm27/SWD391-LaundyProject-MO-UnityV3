@@ -474,9 +474,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba62cb97130feb04eadd62ab5e6eaaa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: {fileID: 0}
-  loginEmail: {fileID: 0}
-  loginPassword: {fileID: 0}
+  view: {fileID: 1754037}
+  loginEmail: {fileID: 1106055932944828903}
+  loginPassword: {fileID: 1106055932875602992}
 --- !u!1 &1325805296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2549,14 +2549,14 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
+  m_ContentType: 6
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 7
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 7
   m_RegexValue: 
   m_GlobalPointSize: 14
   m_CharacterLimit: 0
@@ -3673,7 +3673,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4959188659953790907}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1278858590}
+        m_TargetAssemblyTypeName: Controller, Assembly-CSharp
+        m_MethodName: OnClickCloseMessage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4959188659953790907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4193,7 +4205,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4959188660664036069
 RectTransform:
   m_ObjectHideFlags: 0
