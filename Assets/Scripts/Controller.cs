@@ -1,17 +1,19 @@
+
 using System;
-using BaseHttp.Core;
+using System.Text.RegularExpressions;
 using LaudryAPI;
-using LaundryAPI.Api;
+
 using LaundryAPI.ResponseModels;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class Controller : MonoBehaviour
 {
     private APIServices _apiServices;
     [SerializeField] private View view;
-    [SerializeField] private InputField loginEmail;
-    [SerializeField] private InputField loginPassword;
+    [SerializeField] private TMP_InputField loginEmail;
+    [SerializeField] private TMP_InputField loginPassword;
 
     private void Awake()
     {
@@ -25,13 +27,22 @@ public class Controller : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Keypad0))
         {
             Debug.Log("GET ALL BATCH");
             _apiServices.GetAllBatch();
         }
     }
+    public bool ValidateEmail(string email)
+    {
+        // Regular expression pattern for email validation
+        string pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
 
+        // Use Regex.IsMatch() to check if the email matches the pattern
+        bool isValid = Regex.IsMatch(email, pattern);
+
+        return isValid;
+    }
     #region Button Event
 
     public void OnClickLogin()
@@ -39,17 +50,26 @@ public class Controller : MonoBehaviour
         if (string.IsNullOrEmpty(loginEmail.text) || string.IsNullOrEmpty(loginPassword.text))
         {
             view.ShowError("Error", "Email or password cannot be empty");
+        }else if (!ValidateEmail(loginEmail.text))
+        {
+            view.ShowError("Error", "Email not valid");
         }
         else
         {
-            _apiServices.Login(loginEmail.text, loginPassword.text);
+            try
+            {
+                _apiServices.Login(loginEmail.text, loginPassword.text);
+            }
+            catch (Exception e)
+            {
+                OnLoginFail();
+                throw;
+            }
+
         }
     }
 
-    public void OnClickCloseError()
-    {
-        view.CloseAnPopup(PopupName.Error);
-    }
+  
 
     #endregion
 
@@ -57,11 +77,12 @@ public class Controller : MonoBehaviour
 
     private void OnGetAllBatches(AllBatchResponse response)
     {
+        
     }
 
     private void OnLogin(LoginResponse response)
     {
-        Debug.Log("Login thanh cong");
+         view.ShowMessage("Login successfully", "Welcome " + response.userId);
     }
 
     private void OnGetAllBatchesError()
@@ -73,7 +94,14 @@ public class Controller : MonoBehaviour
     {
         Debug.Log("ERROR");
     }
-
+    public void OnClickCloseError()
+    {
+        view.CloseAnPopup(PopupName.Error);
+    }
+    public void OnClickCloseMessage()
+    {
+        view.CloseAnPopup(PopupName.Message);
+    }
     #endregion
 
 
@@ -86,7 +114,7 @@ public class Controller : MonoBehaviour
     }
 
     private void OnDisable()
-    {
+    {   
         _apiServices.onGetAllBatches = null;
         _apiServices.onLoginFail = null;
         _apiServices.onGetAllBatchesFail = null;

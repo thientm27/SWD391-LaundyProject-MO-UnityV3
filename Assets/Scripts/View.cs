@@ -5,10 +5,14 @@ using UnityEngine;
 public class View : MonoBehaviour
 {
     [SerializeField] private GameObject popupLogin;
+    // ERROR
     [SerializeField] private GameObject popupError;
     [SerializeField] private TextMeshProUGUI errorTitle;
     [SerializeField] private TextMeshProUGUI errorDescription;
-
+    // MESSAGE
+    [SerializeField] private GameObject popupMessage;
+    [SerializeField] private TextMeshProUGUI messageTitle;
+    [SerializeField] private TextMeshProUGUI messageDescription;
     public void CloseAnPopup(PopupName popupName)
     {
         switch (popupName)
@@ -21,6 +25,10 @@ public class View : MonoBehaviour
             case PopupName.Login:
                 popupLogin.SetActive(false);
                 break;
+            case PopupName.Message:
+                popupMessage.SetActive(false);
+                break;
+
         }
     }
 
@@ -30,11 +38,18 @@ public class View : MonoBehaviour
         errorDescription.text = description;
         popupError.SetActive(true);
     }
+    public void ShowMessage(string title, string description)
+    {
+        messageTitle.text = title;
+        messageDescription.text = description;
+        popupMessage.SetActive(true);
+    }
 }
 
 public enum PopupName
 {
     None,
     Error,
-    Login
+    Login,
+    Message
 }
