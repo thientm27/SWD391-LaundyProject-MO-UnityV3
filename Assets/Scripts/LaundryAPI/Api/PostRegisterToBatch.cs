@@ -6,19 +6,17 @@ using SimpleJSON;
 
 namespace LaundryAPI.Api
 {
-    public class GetAllBatchHttp : HttpApi<AllBatchResponse>
+    public class PostRegisterToBatch : HttpApi<RegisterToBatchResponse>
     {
-  
         protected override string ApiUrl { get; set; }
-        private string email;
-        private string password;
 
-        public GetAllBatchHttp()
+        // private string id;
+
+        public PostRegisterToBatch(string batchId)
         {
-            ApiUrl = "api/v1/Batch/GetAll?pageIndex=0&pageSize=10";
+            ApiUrl = "api/v1/Driver/RegisterToBatch/"+batchId;
+            // id = batchId;
         }
-
-
 
         protected override IHttpRequest GetHttpRequest()
         {

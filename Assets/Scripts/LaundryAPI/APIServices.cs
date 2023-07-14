@@ -19,6 +19,13 @@ namespace LaudryAPI
         public UnityAction<AllBatchResponse> onGetAllBatches;
         public UnityAction onGetAllBatchesFail;
 
+        // Batch Today
+        public UnityAction<BatchTodayResponse> onPostBatchToday;
+        public UnityAction onPostBatchTodayFail;
+        
+        // Register to batch
+        public UnityAction<RegisterToBatchResponse> onPostRegisterToBatch;
+        public UnityAction onPostRegisterToBatchFail;
         public void Login(string email, string password)
         {
             LoginHttp data = new LoginHttp(email, password);
@@ -33,6 +40,23 @@ namespace LaudryAPI
         {
             GetAllBatchHttp data2 = new GetAllBatchHttp();
             data2.Send(p => { onGetAllBatches?.Invoke(p); }, _ => { onGetAllBatchesFail?.Invoke(); });
+        }
+
+        public void GetBatchToday()
+        {
+            PostBatchTodayHttp data = new PostBatchTodayHttp();
+            data.Send(p =>
+            {
+                onPostBatchToday?.Invoke(p);
+            }, _ => { onPostBatchTodayFail?.Invoke(); });
+        }
+        public void RegisterToBatch(string batchId)
+        {
+            PostRegisterToBatch data = new PostRegisterToBatch(batchId);
+            data.Send(p =>
+            {
+                onPostRegisterToBatch?.Invoke(p);
+            }, _ => { onPostRegisterToBatchFail?.Invoke(); });
         }
     }
 }

@@ -31,7 +31,7 @@ namespace BaseHttp.Api
             JsonNet // for complex structure ex nested list
         }
 
-        protected abstract string ApiUrl { get; }
+        protected abstract string ApiUrl { get; set; }
 
         protected abstract IHttpRequest GetHttpRequest();
 

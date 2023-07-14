@@ -93,7 +93,7 @@ namespace BaseHttp.Core
                 .AbsoluteUri;
             Debug.Log("NetworkManager -- HttpPost: " + url + $" -- {jsonObj}");
 
-            var request = Http.PostJson(url, jsonObj.ToString())
+            var request = Http.PostJson(url, jsonObj?.ToString())
                 .SetHeader("Content-Type", "application/json")
                 .SetHeader("Authorization", string.Format("Bearer {0}", signinResponse.accessToken));
 
