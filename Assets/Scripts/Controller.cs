@@ -2,6 +2,7 @@ using System;
 using System.Text.RegularExpressions;
 using LaudryAPI;
 using LaundryAPI.ResponseModels;
+using Model;
 using TMPro;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class Controller : MonoBehaviour
     [SerializeField] private TMP_InputField loginEmail;
     [SerializeField] private TMP_InputField loginPassword;
 
+    [SerializeField] private BatchDisplay batchDisplay;
+    private BatchTodayResponse batchToday;
     private string userId;
 
     //38245ee0-d03e-4cdb-9be1-40597f6b41b8 
@@ -23,7 +26,8 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
-    view.ShowAnPopup(PopupName.Login);
+        view.ShowAnPopup(PopupName.Login);
+        batchDisplay.onClickRegister = OnClickRegisterToBatch;
     }
 
     private void Update()
@@ -49,6 +53,12 @@ public class Controller : MonoBehaviour
     }
 
     #region Button Event
+
+    private void OnClickRegisterToBatch(int index)
+    {
+        Debug.Log("Register");
+        Debug.Log(batchToday.items[index].batchId);
+    }
 
     public void OnClickLogin()
     {
@@ -99,7 +109,8 @@ public class Controller : MonoBehaviour
 
     private void OnGetBatchToday(BatchTodayResponse response)
     {
-        Debug.Log(response.totalItemsCount);
+        batchToday = response;
+        batchDisplay.InitListOfBatchDisplay(response.items, userId);
     }
 
     private void OnGetBatchTodayFail()
@@ -126,6 +137,7 @@ public class Controller : MonoBehaviour
         userId = response.userId;
         view.CloseAnPopup(PopupName.Login);
         _apiServices.GetUserInformation(userId);
+        _apiServices.GetBatchToday();
     }
 
     private void OnGetAllBatchesError()
