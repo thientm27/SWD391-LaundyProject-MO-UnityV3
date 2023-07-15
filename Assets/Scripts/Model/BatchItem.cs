@@ -18,7 +18,22 @@ namespace Model
             UnityAction<int> onClickRegister)
         {
             _indexOfBatch = indexOfBatch;
-            typeTxt.text = "Batch Type: " + type;
+            
+            switch (type)
+            {
+                case "Return":
+                    typeTxt.text = "Batch Type: " +  "<color=green>" + type + "</color>";
+                    break;
+                case "Pickup":
+                    typeTxt.text = "Batch Type: " +  "<color=blue>" + type + "</color>";
+                    break;
+                default:
+                    typeTxt.text = "Batch Type: " +  type;
+                    break;
+            }
+
+            
+           
             statusTxt.text = "Batch status: " + status;
             if (driver == 0)
             {
@@ -27,14 +42,15 @@ namespace Model
             }
             else if (driver == -1)
             {
-                driveTxt.text = "Driver: " + "Other driver";
+                driveTxt.text = "Driver: " + "<color=red>Other driver</color>";
                 button.interactable = false;
             }
             else
             {
-                driveTxt.text = "Driver: " + "You";
+                driveTxt.text = "Driver: " + "<color=blue>You</color>";
                 button.interactable = false;
             }
+
 
             _onClickRegister = onClickRegister;
         }

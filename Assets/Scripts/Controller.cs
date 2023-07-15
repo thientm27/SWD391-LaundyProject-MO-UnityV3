@@ -58,6 +58,7 @@ public class Controller : MonoBehaviour
     {
         Debug.Log("Register");
         Debug.Log(batchToday.items[index].batchId);
+        _apiServices.RegisterToBatch(batchToday.items[index].batchId);
     }
 
     public void OnClickLogin()
@@ -120,12 +121,14 @@ public class Controller : MonoBehaviour
 
     private void OnGetRegisterToBatch(RegisterToBatchResponse response)
     {
-        Debug.Log(response.message);
+        view.ShowMessage("Message",response.message ); 
+        // reload batch
+        _apiServices.GetBatchToday();
     }
 
     private void OnGetRegisterToBatchFail()
     {
-        Debug.Log("fail");
+        view.ShowError("Error unknown","Register fail" );
     }
 
     private void OnGetAllBatches(AllBatchResponse response)
@@ -168,7 +171,6 @@ public class Controller : MonoBehaviour
         _apiServices.onGetAllBatches = OnGetAllBatches;
         _apiServices.onGetAllBatchesFail = OnGetAllBatchesError;
         // LOGIN
-
         _apiServices.onLogin = OnLogin;
         _apiServices.onLoginFail = OnLoginFail;
         // Register to batch
