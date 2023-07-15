@@ -39,7 +39,7 @@ namespace LaundryAPI.ResponseModels
         public string PhoneNumber { get; set; }
     }
 
-    public class OrderInBatchResponse
+    public class OrderInBatchRes
     {
         public string OrderInBatchId { get; set; }
         public object Batch { get; set; }
@@ -53,7 +53,7 @@ namespace LaundryAPI.ResponseModels
     {
         public string BatchId { get; set; }
         public Driver Driver { get; set; }
-        public List<OrderInBatchResponse> OrderInBatchResponses { get; set; }
+        public List<OrderInBatchRes> OrderInBatchResponses { get; set; }
         public string DriverId { get; set; }
         public string Type { get; set; }
         public string Status { get; set; }

@@ -27,9 +27,14 @@ namespace LaudryAPI
         // Register to batch
         public UnityAction<RegisterToBatchResponse> onPostRegisterToBatch;
         public UnityAction onPostRegisterToBatchFail;
-        // Get batches  driver
+        
+        // Get batches driver
         public UnityAction<BatchOfDriverResponse> onGetBatchOfDriver;
         public UnityAction onGetBatchOfDriverFail;
+        
+        // Get batches  driver
+        public UnityAction<OrderInBatchResponse> onGetOrderInBatch;
+        public UnityAction onGetOrderInBatchFail;
         public void Login(string email, string password)
         {
             LoginHttp data = new LoginHttp(email, password);
@@ -38,6 +43,11 @@ namespace LaudryAPI
                 NetworkManager.Instance.SigninResponse.accessToken = p.jwt;
                 onLogin?.Invoke(p);
             }, _ => { onLoginFail?.Invoke(); });
+        }
+        public void GetOrderInBatch(string id)
+        {
+            GetOrderInBatch data2 = new GetOrderInBatch(id);
+            data2.Send(p => { onGetOrderInBatch?.Invoke(p); }, _ => { onGetOrderInBatchFail?.Invoke(); });
         }
         public void GetAllBatchOfDriver(string id)
         {
