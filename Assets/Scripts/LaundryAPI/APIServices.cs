@@ -3,8 +3,7 @@ using System.Linq;
 using BaseHttp.Core;
 using LaundryAPI.Api;
 using LaundryAPI.ResponseModels;
-using Model;
-using UnityEngine;
+
 using UnityEngine.Events;
 
 namespace LaudryAPI
@@ -35,6 +34,10 @@ namespace LaudryAPI
         // Get batches  driver
         public UnityAction<OrderInBatchResponse> onGetOrderInBatch;
         public UnityAction onGetOrderInBatchFail;
+        
+        // Get batches  driver
+        public UnityAction<UserInformation> onGetUserInformation;
+        public UnityAction onGetUserInformationFail;
         public void Login(string email, string password)
         {
             LoginHttp data = new LoginHttp(email, password);
@@ -43,6 +46,11 @@ namespace LaudryAPI
                 NetworkManager.Instance.SigninResponse.accessToken = p.jwt;
                 onLogin?.Invoke(p);
             }, _ => { onLoginFail?.Invoke(); });
+        }
+        public void GetUserInformation(string id)
+        {
+            GetUserInformation data2 = new GetUserInformation(id);
+            data2.Send(p => { onGetUserInformation?.Invoke(p); }, _ => { onGetUserInformationFail?.Invoke(); });
         }
         public void GetOrderInBatch(string id)
         {

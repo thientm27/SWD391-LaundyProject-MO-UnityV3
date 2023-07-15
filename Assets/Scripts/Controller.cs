@@ -13,16 +13,19 @@ public class Controller : MonoBehaviour
     [SerializeField] private TMP_InputField loginEmail;
     [SerializeField] private TMP_InputField loginPassword;
 
+    private string userId;
+
+    //38245ee0-d03e-4cdb-9be1-40597f6b41b8 
     private void Awake()
     {
         _apiServices = new APIServices();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
+    view.ShowAnPopup(PopupName.Login);
     }
-    //38245ee0-d03e-4cdb-9be1-40597f6b41b8
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Keypad0))
@@ -74,18 +77,31 @@ public class Controller : MonoBehaviour
     #endregion
 
     #region API Callback
+
+    private void OnGetUserInformation(UserInformation response)
+    {
+        view.InitMainPage(response.wallet.ToString(), response.fullName.ToString());
+    }
+
+    private void OnGetUserInformationFail()
+    {
+    }
+
     private void OnGetBatchOfDriver(BatchOfDriverResponse response)
     {
         Debug.Log(response.totalItemsCount);
     }
+
     private void OnGetBatchOfDriverFail()
     {
         Debug.Log("Fail");
     }
+
     private void OnGetBatchToday(BatchTodayResponse response)
     {
         Debug.Log(response.totalItemsCount);
     }
+
     private void OnGetBatchTodayFail()
     {
         Debug.Log("fail");
@@ -95,6 +111,7 @@ public class Controller : MonoBehaviour
     {
         Debug.Log(response.message);
     }
+
     private void OnGetRegisterToBatchFail()
     {
         Debug.Log("fail");
@@ -106,7 +123,9 @@ public class Controller : MonoBehaviour
 
     private void OnLogin(LoginResponse response)
     {
-        view.ShowMessage("Login successfully", "Welcome " + response.userId);
+        userId = response.userId;
+        view.CloseAnPopup(PopupName.Login);
+        _apiServices.GetUserInformation(userId);
     }
 
     private void OnGetAllBatchesError()
@@ -135,8 +154,10 @@ public class Controller : MonoBehaviour
     private void OnEnable()
     {
         _apiServices.onGetAllBatches = OnGetAllBatches;
-        _apiServices.onLogin = OnLogin;
         _apiServices.onGetAllBatchesFail = OnGetAllBatchesError;
+        // LOGIN
+
+        _apiServices.onLogin = OnLogin;
         _apiServices.onLoginFail = OnLoginFail;
         // Register to batch
         _apiServices.onPostRegisterToBatch = OnGetRegisterToBatch;
@@ -147,6 +168,9 @@ public class Controller : MonoBehaviour
         // Get batch of driver
         _apiServices.onGetBatchOfDriver = OnGetBatchOfDriver;
         _apiServices.onGetBatchOfDriverFail = OnGetBatchOfDriverFail;
+        // Get user infor
+        _apiServices.onGetUserInformation = OnGetUserInformation;
+        _apiServices.onGetUserInformationFail = OnGetUserInformationFail;
     }
 
     private void OnDisable()
@@ -164,5 +188,8 @@ public class Controller : MonoBehaviour
         // Get batch of driver
         _apiServices.onGetBatchOfDriver = null;
         _apiServices.onGetBatchOfDriverFail = null;
+        // Get user infor
+        _apiServices.onGetUserInformation = null;
+        _apiServices.onGetUserInformationFail = null;
     }
 }
