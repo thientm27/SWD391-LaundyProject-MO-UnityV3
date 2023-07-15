@@ -8,7 +8,7 @@ using SimpleJSON;
 
 namespace LaundryAPI.Api
 {
-    public class GetBatchOfDriver: HttpApi<BatchTodayResponse>
+    public class GetBatchOfDriver: HttpApi<BatchOfDriverResponse>
     {
    
         protected override string ApiUrl { get; set; }

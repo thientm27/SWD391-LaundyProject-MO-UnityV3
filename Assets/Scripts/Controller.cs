@@ -22,14 +22,15 @@ public class Controller : MonoBehaviour
     void Start()
     {
     }
-
+    //38245ee0-d03e-4cdb-9be1-40597f6b41b8
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
             Debug.Log("Test API");
-            _apiServices.GetBatchToday();
+            // _apiServices.GetBatchToday();
             // _apiServices.RegisterToBatch("c1a1dea7-0b3b-4470-bcc1-2aa7470a6f45");
+            _apiServices.GetAllBatchOfDriver("38245ee0-d03e-4cdb-9be1-40597f6b41b8");
         }
     }
 
@@ -73,6 +74,14 @@ public class Controller : MonoBehaviour
     #endregion
 
     #region API Callback
+    private void OnGetBatchOfDriver(BatchOfDriverResponse response)
+    {
+        Debug.Log(response.totalItemsCount);
+    }
+    private void OnGetBatchOfDriverFail()
+    {
+        Debug.Log("Fail");
+    }
     private void OnGetBatchToday(BatchTodayResponse response)
     {
         Debug.Log(response.totalItemsCount);
@@ -129,10 +138,15 @@ public class Controller : MonoBehaviour
         _apiServices.onLogin = OnLogin;
         _apiServices.onGetAllBatchesFail = OnGetAllBatchesError;
         _apiServices.onLoginFail = OnLoginFail;
+        // Register to batch
         _apiServices.onPostRegisterToBatch = OnGetRegisterToBatch;
         _apiServices.onPostRegisterToBatchFail = OnGetRegisterToBatchFail;
+        // Get batch today
         _apiServices.onPostBatchToday = OnGetBatchToday;
         _apiServices.onPostBatchTodayFail = OnGetBatchTodayFail;
+        // Get batch of driver
+        _apiServices.onGetBatchOfDriver = OnGetBatchOfDriver;
+        _apiServices.onGetBatchOfDriverFail = OnGetBatchOfDriverFail;
     }
 
     private void OnDisable()
@@ -141,9 +155,14 @@ public class Controller : MonoBehaviour
         _apiServices.onLoginFail = null;
         _apiServices.onGetAllBatchesFail = null;
         _apiServices.onLogin = null;
+        // Register to batch
         _apiServices.onPostRegisterToBatch = null;
         _apiServices.onPostRegisterToBatchFail = null;
+        // Get batch today
         _apiServices.onPostBatchToday = null;
         _apiServices.onPostBatchTodayFail = null;
+        // Get batch of driver
+        _apiServices.onGetBatchOfDriver = null;
+        _apiServices.onGetBatchOfDriverFail = null;
     }
 }

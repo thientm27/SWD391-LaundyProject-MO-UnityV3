@@ -11,6 +11,7 @@ namespace LaudryAPI
 {
     public class APIServices 
     {
+
         // LOGIN
         public UnityAction<LoginResponse> onLogin;
         public UnityAction onLoginFail;
@@ -26,6 +27,9 @@ namespace LaudryAPI
         // Register to batch
         public UnityAction<RegisterToBatchResponse> onPostRegisterToBatch;
         public UnityAction onPostRegisterToBatchFail;
+        // Get batches  driver
+        public UnityAction<BatchOfDriverResponse> onGetBatchOfDriver;
+        public UnityAction onGetBatchOfDriverFail;
         public void Login(string email, string password)
         {
             LoginHttp data = new LoginHttp(email, password);
@@ -35,7 +39,11 @@ namespace LaudryAPI
                 onLogin?.Invoke(p);
             }, _ => { onLoginFail?.Invoke(); });
         }
-
+        public void GetAllBatchOfDriver(string id)
+        {
+            GetBatchOfDriver data2 = new GetBatchOfDriver(id);
+            data2.Send(p => { onGetBatchOfDriver?.Invoke(p); }, _ => { onGetBatchOfDriverFail?.Invoke(); });
+        }
         public void GetAllBatch()
         {
             GetAllBatch data2 = new GetAllBatch();

@@ -20,8 +20,8 @@ namespace LaundryAPI.ResponseModels
             public string fullName { get; set; }
             public string email { get; set; }
             public string phoneNumber { get; set; }
-            public int wallet { get; set; }
-            public int cod { get; set; }
+            public float wallet { get; set; }
+            public float cod { get; set; }
         }
 
         public class Item
