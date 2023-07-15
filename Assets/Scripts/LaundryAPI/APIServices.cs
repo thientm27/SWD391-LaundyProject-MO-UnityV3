@@ -38,13 +38,13 @@ namespace LaudryAPI
 
         public void GetAllBatch()
         {
-            GetAllBatchHttp data2 = new GetAllBatchHttp();
+            GetAllBatch data2 = new GetAllBatch();
             data2.Send(p => { onGetAllBatches?.Invoke(p); }, _ => { onGetAllBatchesFail?.Invoke(); });
         }
 
         public void GetBatchToday()
         {
-            PostBatchTodayHttp data = new PostBatchTodayHttp();
+            GetBatchToday data = new GetBatchToday();
             data.Send(p =>
             {
                 onPostBatchToday?.Invoke(p);
@@ -52,7 +52,7 @@ namespace LaudryAPI
         }
         public void RegisterToBatch(string batchId)
         {
-            PostRegisterToBatch data = new PostRegisterToBatch(batchId);
+            UpdateRegisterToBatch data = new UpdateRegisterToBatch(batchId);
             data.Send(p =>
             {
                 onPostRegisterToBatch?.Invoke(p);

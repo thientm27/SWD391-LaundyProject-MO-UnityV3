@@ -6,13 +6,13 @@ using SimpleJSON;
 
 namespace LaundryAPI.Api
 {
-    public class PostRegisterToBatch : HttpApi<RegisterToBatchResponse>
+    public class UpdateRegisterToBatch : HttpApi<RegisterToBatchResponse>
     {
         protected override string ApiUrl { get; set; }
 
         // private string id;
 
-        public PostRegisterToBatch(string batchId)
+        public UpdateRegisterToBatch(string batchId)
         {
             ApiUrl = "api/v1/Driver/RegisterToBatch/"+batchId;
             // id = batchId;

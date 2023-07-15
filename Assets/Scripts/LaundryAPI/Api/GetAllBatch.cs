@@ -6,14 +6,14 @@ using SimpleJSON;
 
 namespace LaundryAPI.Api
 {
-    public class GetAllBatchHttp : HttpApi<AllBatchResponse>
+    public class GetAllBatch : HttpApi<AllBatchResponse>
     {
   
         protected override string ApiUrl { get; set; }
         private string email;
         private string password;
 
-        public GetAllBatchHttp()
+        public GetAllBatch()
         {
             ApiUrl = "api/v1/Batch/GetAll?pageIndex=0&pageSize=10";
         }
