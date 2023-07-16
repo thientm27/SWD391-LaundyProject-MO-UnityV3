@@ -13,8 +13,9 @@ public class Controller : MonoBehaviour
     [SerializeField] private View view;
     [SerializeField] private TMP_InputField loginEmail;
     [SerializeField] private TMP_InputField loginPassword;
-
     [SerializeField] private BatchDisplay batchDisplay;
+    [SerializeField] private FooterTab[] footerTabs;
+
     private BatchTodayResponse batchToday;
     private string userId;
 
@@ -28,6 +29,12 @@ public class Controller : MonoBehaviour
     {
         view.ShowAnPopup(PopupName.Login);
         batchDisplay.onClickRegister = OnClickRegisterToBatch;
+        foreach (var oFooterTab in footerTabs)
+        {
+            oFooterTab.onClick = OnClickFooterTab;
+        }
+
+        OnClickFooterTab(footerTabs[0]);
     }
 
     private void Update()
@@ -37,7 +44,8 @@ public class Controller : MonoBehaviour
             Debug.Log("Test API");
             // _apiServices.GetBatchToday();
             // _apiServices.RegisterToBatch("c1a1dea7-0b3b-4470-bcc1-2aa7470a6f45");
-            _apiServices.GetAllBatchOfDriver("38245ee0-d03e-4cdb-9be1-40597f6b41b8");
+            // _apiServices.GetAllBatchOfDriver("38245ee0-d03e-4cdb-9be1-40597f6b41b8");
+            _apiServices.GetOrderInBatch("9d35343b-d0d3-4ab9-b72b-939160cfcfba");
         }
     }
 
@@ -53,6 +61,27 @@ public class Controller : MonoBehaviour
     }
 
     #region Button Event
+
+    private void OnClickFooterTab(FooterTab itemClick)
+    {
+        var index = 0;
+        foreach (var item in footerTabs)
+        {
+            item.SetActive(false);
+        }
+        foreach (var item in footerTabs)
+        {
+            if (item == itemClick)
+            {
+                item.SetActive(true);
+                break;
+            }
+            index++;
+        }
+        
+        // do stm
+        view.SwitchTab(index);
+    }
 
     private void OnClickRegisterToBatch(int index)
     {
@@ -121,14 +150,14 @@ public class Controller : MonoBehaviour
 
     private void OnGetRegisterToBatch(RegisterToBatchResponse response)
     {
-        view.ShowMessage("Message",response.message ); 
+        view.ShowMessage("Message", response.message);
         // reload batch
         _apiServices.GetBatchToday();
     }
 
     private void OnGetRegisterToBatchFail()
     {
-        view.ShowError("Error unknown","Register fail" );
+        view.ShowError("Error unknown", "Register fail");
     }
 
     private void OnGetAllBatches(AllBatchResponse response)

@@ -21,6 +21,27 @@ public class View : MonoBehaviour
     // MAIN
     [SerializeField] private TextMeshProUGUI walletUserTxt;
     [SerializeField] private TextMeshProUGUI userNameTxt;
+    [SerializeField] private GameObject batchToday;
+    [SerializeField] private GameObject myOrder;
+
+    public void SwitchTab(int index)
+    {
+        batchToday.SetActive(false);
+        myOrder.SetActive(false);
+        switch (index)
+        {
+            case 0:
+            {
+                batchToday.SetActive(true);
+                break;
+            }
+            case 1:
+            {
+                myOrder.SetActive(true);
+                break;
+            }
+        }
+    }
 
     public void InitMainPage(string wallet, string userName)
     {
