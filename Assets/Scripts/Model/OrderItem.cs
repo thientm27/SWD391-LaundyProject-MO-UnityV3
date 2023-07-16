@@ -8,7 +8,7 @@ namespace Model
     {
         private int _indexOfOrder;
         private UnityAction<int> _onClickView;
-        private UnityAction<int> _onClickSubmit;
+        public UnityAction<int> _onClickSubmit;
         [SerializeField] private TextMeshProUGUI typeTxt;
 
         public void InitItem(int index, UnityAction<int> onClickView, UnityAction<int> onClickSubmit)

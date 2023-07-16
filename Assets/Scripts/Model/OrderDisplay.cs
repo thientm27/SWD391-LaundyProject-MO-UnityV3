@@ -13,7 +13,7 @@ namespace Model
         [SerializeField] private Transform displayContainer;
         private List<GameObject> itemBatchList;
 
-        public void InitListOrder(List<BatchTodayResponse.ItemBatchToday> items, string userId)
+        public void InitListOrder(List<BatchTodayResponse.ItemBatchToday> items)
         {
             // CLEAR OLD
             if (itemBatchList == null)
@@ -38,17 +38,6 @@ namespace Model
                     {
                         var obj = Instantiate(batchItemDisplay, displayContainer);
                         var controller = obj.GetComponent<OrderItem>();
-                        int validStatus = 0;
-                        Debug.Log("INIT BATCH");
-                        Debug.Log(userId);
-                        if (userId == (string)item.driverId)
-                        {
-                            validStatus = 1;
-                        }
-                        else if (item.driverId != null)
-                        {
-                            validStatus = -1;
-                        }
 
                         controller.InitItem(index, onClickViewOrder, onClickSubmitOrder);
                         itemBatchList.Add(obj);

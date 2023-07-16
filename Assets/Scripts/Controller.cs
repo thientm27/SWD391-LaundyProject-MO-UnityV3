@@ -14,6 +14,8 @@ public class Controller : MonoBehaviour
     [SerializeField] private TMP_InputField loginEmail;
     [SerializeField] private TMP_InputField loginPassword;
     [SerializeField] private BatchDisplay batchDisplay;
+    [SerializeField] private OrderDisplay orderDisplay;
+    [SerializeField] private OrderItem demoOrderItem;
     [SerializeField] private FooterTab[] footerTabs;
 
     private BatchTodayResponse batchToday;
@@ -29,12 +31,14 @@ public class Controller : MonoBehaviour
     {
         view.ShowAnPopup(PopupName.Login);
         batchDisplay.onClickRegister = OnClickRegisterToBatch;
+        // orderDisplay.onClickSubmitOrder = 
         foreach (var oFooterTab in footerTabs)
         {
             oFooterTab.onClick = OnClickFooterTab;
         }
 
         OnClickFooterTab(footerTabs[0]);
+        demoOrderItem._onClickSubmit = OnClickFinishOrder;
     }
 
     private void Update()
@@ -42,10 +46,8 @@ public class Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
             Debug.Log("Test API");
-            // _apiServices.GetBatchToday();
-            // _apiServices.RegisterToBatch("c1a1dea7-0b3b-4470-bcc1-2aa7470a6f45");
-            // _apiServices.GetAllBatchOfDriver("38245ee0-d03e-4cdb-9be1-40597f6b41b8");
-            _apiServices.GetOrderInBatch("9d35343b-d0d3-4ab9-b72b-939160cfcfba");
+            // _apiServices.GetOrderInBatch("9d35343b-d0d3-4ab9-b72b-939160cfcfba");
+            _apiServices.FinishOrder("352a35d9-11f0-4538-bacf-d79a68a2a97e");
         }
     }
 
@@ -81,6 +83,19 @@ public class Controller : MonoBehaviour
         
         // do stm
         view.SwitchTab(index);
+        switch (index)
+        {
+            case 0:
+            {
+                break;
+            }
+            case 1:
+            {
+                // Init Order
+                orderDisplay.InitListOrder(batchToday.items);
+                break;
+            }
+        }
     }
 
     private void OnClickRegisterToBatch(int index)
@@ -88,6 +103,26 @@ public class Controller : MonoBehaviour
         Debug.Log("Register");
         Debug.Log(batchToday.items[index].batchId);
         _apiServices.RegisterToBatch(batchToday.items[index].batchId);
+    }
+    private void OnClickFinishOrder(int index)
+    {
+        var indexTmp = 0;
+        foreach (var batch in batchToday.items)
+        {
+            if (batch.orderInBatch != null)
+            {
+                foreach (var order in batch.orderInBatch)
+                {
+                    if (indexTmp == index)
+                    {
+                        _apiServices.FinishOrder(order.orderId);
+                        return;
+                    }
+                    indexTmp++;
+                }
+            }
+        }
+        _apiServices.FinishOrder("352a35d9-11f0-4538-bacf-d79a68a2a97e"); // demo
     }
 
     public void OnClickLogin()
@@ -117,6 +152,14 @@ public class Controller : MonoBehaviour
     #endregion
 
     #region API Callback
+    private void OnFinishOrder(FinishOrderResponse response)
+    {
+        view.ShowMessage("Message", response.message);
+    }
+
+    private void OnFinishOrderFail()
+    {
+    }
 
     private void OnGetUserInformation(UserInformation response)
     {
@@ -214,6 +257,9 @@ public class Controller : MonoBehaviour
         // Get user infor
         _apiServices.onGetUserInformation = OnGetUserInformation;
         _apiServices.onGetUserInformationFail = OnGetUserInformationFail;
+        // Finish Order
+        _apiServices.onFinishOrder = OnFinishOrder;
+        _apiServices.onFinishOrderFail = OnFinishOrderFail;
     }
 
     private void OnDisable()
@@ -234,5 +280,8 @@ public class Controller : MonoBehaviour
         // Get user infor
         _apiServices.onGetUserInformation = null;
         _apiServices.onGetUserInformationFail = null;
+        // Finish Order
+        _apiServices.onFinishOrder = OnFinishOrder;
+        _apiServices.onFinishOrderFail = OnFinishOrderFail;
     }
 }

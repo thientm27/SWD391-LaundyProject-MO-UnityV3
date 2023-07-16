@@ -37,7 +37,10 @@ namespace LaudryAPI
         
         // Get batches  driver
         public UnityAction<UserInformation> onGetUserInformation;
-        public UnityAction onGetUserInformationFail;
+        public UnityAction onGetUserInformationFail;    
+        // Finish order
+        public UnityAction<FinishOrderResponse> onFinishOrder;
+        public UnityAction onFinishOrderFail;
         public void Login(string email, string password)
         {
             LoginHttp data = new LoginHttp(email, password);
@@ -46,6 +49,12 @@ namespace LaudryAPI
                 NetworkManager.Instance.SigninResponse.accessToken = p.jwt;
                 onLogin?.Invoke(p);
             }, _ => { onLoginFail?.Invoke(); });
+        }
+        
+        public void FinishOrder(string id)
+        {
+            FinishOrder data2 = new FinishOrder(id);
+            data2.Send(p => { onFinishOrder?.Invoke(p); }, _ => { onFinishOrderFail?.Invoke(); });
         }
         public void GetUserInformation(string id)
         {
