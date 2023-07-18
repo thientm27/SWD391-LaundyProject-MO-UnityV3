@@ -381,6 +381,124 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &294799803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 294799804}
+  - component: {fileID: 294799805}
+  m_Layer: 0
+  m_Name: '@Model'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &294799804
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294799803}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &294799805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294799803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06d006015d304837a32cd0b1093875b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fakeDataBuilding:
+  - S1.01
+  - S1.02
+  - S1.03
+  - S1.04
+  - S1.05
+  - S1.06
+  - S1.07
+  - S2.01
+  - S2.02
+  - S2.03
+  - S2.04
+  - S2.05
+  - S3.01
+  - S3.02
+  - S3.03
+  - S3.04
+  - S5.01
+  - S5.02
+  - S5.03
+  fakeDataCustomerA:
+  - "Nguy\u1EC5n"
+  - "Tr\u1EA7n"
+  - "L\xEA"
+  - "Ph\u1EA1m"
+  - "Ho\xE0ng"
+  - "Hu\u1EF3nh"
+  - "V\u0169"
+  - "\u0110\u1EB7ng"
+  - "B\xF9i"
+  - "\u0110\u1ED7"
+  - 
+  fakeDataCustomerB:
+  - "Tr\u01B0\u1EDDng"
+  - "H\u1ED3"
+  - "Qu\u1ED1c"
+  - "B\u1EA3o"
+  - Minh
+  - "Xu\xE2n"
+  - "\u0110\u1EE9c"
+  - "Th\u1ECB"
+  - "Ng\u1ECDc"
+  - "Ph\u01B0\u01A1ng"
+  - Thanh
+  - "H\u1EA3i"
+  - "Th\xFAy"
+  - "Thu\u1EF3"
+  - "\u0110\u1EE9c"
+  - "Di\u1EC5m"
+  - "\u0110\xECnh"
+  - "V\u0103n"
+  - Thanh
+  - 
+  fakeDataCustomerC:
+  - Thanh
+  - "H\u1EA3i"
+  - Trang
+  - "D\u0169ng"
+  - Linh
+  - "T\xFA"
+  - "H\u1EA1nh"
+  - Quang
+  - "Hi\u1EC1n"
+  - An
+  - Minh
+  - Lan
+  - "Tu\u1EA5n"
+  - "Ng\u1ECDc"
+  - "Th\xFAy"
+  - "\u0110\u1EE9c"
+  - "Th\u1EA3o"
+  - Long
+  - Nga
+  - "Vi\u1EC7t"
 --- !u!1 &305030969
 GameObject:
   m_ObjectHideFlags: 0
