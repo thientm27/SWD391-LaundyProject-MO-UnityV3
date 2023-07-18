@@ -12,6 +12,7 @@ namespace SystemApp
     {
         private APIServices _apiServices;
         [SerializeField] private View view;
+        [SerializeField] private Model model;
         [SerializeField] private TMP_InputField loginEmail;
         [SerializeField] private TMP_InputField loginPassword;
         [SerializeField] private BatchDisplay batchDisplay;
@@ -39,7 +40,13 @@ namespace SystemApp
             }
 
             OnClickFooterTab(footerTabs[0]);
-            demoOrderItem._onClickSubmit = OnClickFinishOrder;
+            // demoOrderItem._onClickSubmit = OnClickFinishOrder;
+            demoOrderItem.InitItem(-1, (int id) => {Debug.Log("Hhi" +
+                                                        "");}, OnClickFinishOrder
+                , model.GetRandomData(FakeDataType.Customer)
+                , model.GetRandomData(FakeDataType.Building)
+                , model.GetRandomData(FakeDataType.Money));
+
         }
 
         private void Update()
@@ -123,6 +130,7 @@ namespace SystemApp
                     }
                 }
             }
+            Debug.Log("Invoke demo finish order");
             _apiServices.FinishOrder("352a35d9-11f0-4538-bacf-d79a68a2a97e"); // demo
         }
 
@@ -160,6 +168,7 @@ namespace SystemApp
 
         private void OnFinishOrderFail()
         {
+            view.ShowError("ERROR", "ERROR WHILE FINISH ORDER");
         }
 
         private void OnGetUserInformation(UserInformation response)

@@ -20,7 +20,7 @@ namespace SystemApp
 
                     return Random.Range(10, 500) + ".000 VND";
                 case FakeDataType.Customer:
-                    return fakeDataCustomerA[Random.Range(0, fakeDataBuilding.Count)] + fakeDataCustomerB[Random.Range(0, fakeDataBuilding.Count)] + fakeDataCustomerC[Random.Range(0, fakeDataBuilding.Count)];
+                    return fakeDataCustomerA[Random.Range(0, fakeDataBuilding.Count - 1)] + fakeDataCustomerB[Random.Range(0, fakeDataBuilding.Count - 1)] + fakeDataCustomerC[Random.Range(0, fakeDataBuilding.Count - 1)];
             }
 
             return "";

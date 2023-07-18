@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using LaundryAPI.ResponseModels;
+using SystemApp;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,6 +10,7 @@ namespace Model
     {
         public UnityAction<int> onClickSubmitOrder;
         public UnityAction<int> onClickViewOrder;
+        public SystemApp.Model fakeData;
         [SerializeField] private GameObject batchItemDisplay;
         [SerializeField] private Transform displayContainer;
         private List<GameObject> itemBatchList;
@@ -39,7 +41,10 @@ namespace Model
                         var obj = Instantiate(batchItemDisplay, displayContainer);
                         var controller = obj.GetComponent<OrderItem>();
 
-                        controller.InitItem(index, onClickViewOrder, onClickSubmitOrder);
+                        controller.InitItem(index, onClickViewOrder, onClickSubmitOrder
+                            , fakeData.GetRandomData(FakeDataType.Customer),
+                            fakeData.GetRandomData(FakeDataType.Building),
+                            fakeData.GetRandomData(FakeDataType.Money));
                         itemBatchList.Add(obj);
                         index++;
                     }
