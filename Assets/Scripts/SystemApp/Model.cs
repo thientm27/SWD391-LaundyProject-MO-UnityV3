@@ -17,10 +17,13 @@ namespace SystemApp
                 case FakeDataType.Building:
                     return fakeDataBuilding[Random.Range(0, fakeDataBuilding.Count)];
                 case FakeDataType.Money:
-
                     return Random.Range(10, 500) + ".000 VND";
                 case FakeDataType.Customer:
-                    return fakeDataCustomerA[Random.Range(0, fakeDataBuilding.Count - 1)] + fakeDataCustomerB[Random.Range(0, fakeDataBuilding.Count - 1)] + fakeDataCustomerC[Random.Range(0, fakeDataBuilding.Count - 1)];
+                    var tmp = fakeDataCustomerA[Random.Range(0, fakeDataCustomerA.Count - 1)] + " " +
+                              fakeDataCustomerB[Random.Range(0, fakeDataCustomerB.Count - 1)] + " " +
+                              fakeDataCustomerC[Random.Range(0, fakeDataCustomerC.Count - 1)];
+                    Debug.Log("TMT: " + tmp);
+                    return tmp;
             }
 
             return "";

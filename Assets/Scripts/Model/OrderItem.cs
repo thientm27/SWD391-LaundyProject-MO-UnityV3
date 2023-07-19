@@ -20,6 +20,7 @@ namespace Model
         {
             typeTxt.text = "Order: " + index;
             nameTxt.text = "Customer: " + name;
+            Debug.Log("TMT: " + name);
             buildingTxt.text = "Building: " + building;
             priceTxt.text = "Price: " + price;
             _indexOfOrder = index;
