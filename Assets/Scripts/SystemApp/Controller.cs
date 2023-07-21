@@ -23,6 +23,9 @@ namespace SystemApp
         private BatchTodayResponse batchToday;
         private string userId;
 
+        private int monney;
+
+
         //38245ee0-d03e-4cdb-9be1-40597f6b41b8 
         private void Awake()
         {
@@ -33,7 +36,7 @@ namespace SystemApp
         {
             view.ShowAnPopup(PopupName.Login);
             batchDisplay.onClickRegister = OnClickRegisterToBatch;
-            // orderDisplay.onClickSubmitOrder = 
+            orderDisplay.onClickSubmitOrder = OnClickFinishOrder;
             foreach (var oFooterTab in footerTabs)
             {
                 oFooterTab.onClick = OnClickFooterTab;
@@ -41,12 +44,11 @@ namespace SystemApp
 
             OnClickFooterTab(footerTabs[0]);
             // demoOrderItem._onClickSubmit = OnClickFinishOrder;
-            demoOrderItem.InitItem(-1, (int id) => {Debug.Log("Hhi" +
-                                                        "");}, OnClickFinishOrder
-                , model.GetRandomData(FakeDataType.Customer)
-                , model.GetRandomData(FakeDataType.Building)
-                , model.GetRandomData(FakeDataType.Money));
-
+            // demoOrderItem.InitItem(-1,"352a35d9-11f0-4538-bacf-d79a68a2a97e", (int id) => {Debug.Log("Hhi" +
+            //                                             "");}, OnClickFinishOrder
+            //     , model.GetRandomData(FakeDataType.Customer)
+            //     , model.GetRandomData(FakeDataType.Building)
+            //     , model.GetRandomData(FakeDataType.Money));
         }
 
         private void Update()
@@ -55,7 +57,7 @@ namespace SystemApp
             {
                 Debug.Log("Test API");
                 // _apiServices.GetOrderInBatch("9d35343b-d0d3-4ab9-b72b-939160cfcfba");
-                _apiServices.FinishOrder("352a35d9-11f0-4538-bacf-d79a68a2a97e");
+                // _apiServices.FinishOrder("352a35d9-11f0-4538-bacf-d79a68a2a97e");
             }
         }
 
@@ -79,6 +81,7 @@ namespace SystemApp
             {
                 item.SetActive(false);
             }
+
             foreach (var item in footerTabs)
             {
                 if (item == itemClick)
@@ -86,21 +89,23 @@ namespace SystemApp
                     item.SetActive(true);
                     break;
                 }
+
                 index++;
             }
-        
+
             // do stm
             view.SwitchTab(index);
             switch (index)
             {
                 case 0:
                 {
+                    _apiServices.GetBatchToday();
                     break;
                 }
                 case 1:
                 {
                     // Init Order
-                    orderDisplay.InitListOrder(batchToday.items);
+                    orderDisplay.InitListOrder(batchToday.items, userId);
                     break;
                 }
             }
@@ -112,26 +117,39 @@ namespace SystemApp
             Debug.Log(batchToday.items[index].batchId);
             _apiServices.RegisterToBatch(batchToday.items[index].batchId);
         }
-        private void OnClickFinishOrder(int index)
+
+        private void OnClickFinishOrder(string id, int money)
         {
-            var indexTmp = 0;
-            foreach (var batch in batchToday.items)
+            if (string.IsNullOrEmpty(id))
             {
-                if (batch.orderInBatch != null)
-                {
-                    foreach (var order in batch.orderInBatch)
-                    {
-                        if (indexTmp == index)
-                        {
-                            _apiServices.FinishOrder(order.orderId);
-                            return;
-                        }
-                        indexTmp++;
-                    }
-                }
+                Debug.Log("Invoke demo finish order");
+                _apiServices.FinishOrder("352a35d9-11f0-4538-bacf-d79a68a2a97e"); // demo
             }
-            Debug.Log("Invoke demo finish order");
-            _apiServices.FinishOrder("352a35d9-11f0-4538-bacf-d79a68a2a97e"); // demo
+            else
+            {
+                _apiServices.FinishOrder(id); // demo
+                orderDisplay.InitListOrder(batchToday.items, userId);
+                monney += money;
+                SaveMoney(monney);
+                view.UpdateWalletDisplay(money.ToString());
+            }
+            // var indexTmp = 0;
+            // foreach (var batch in batchToday.items)
+            // {
+            //     if (batch.orderInBatch != null)
+            //     {
+            //         foreach (var order in batch.orderInBatch)
+            //         {
+            //             if (indexTmp == index)
+            //             {
+            //                 _apiServices.FinishOrder(order.orderId);
+            //                 return;
+            //             }
+            //             indexTmp++;
+            //         }
+            //     }
+            // }
+            //
         }
 
         public void OnClickLogin()
@@ -161,6 +179,7 @@ namespace SystemApp
         #endregion
 
         #region API Callback
+
         private void OnFinishOrder(FinishOrderResponse response)
         {
             view.ShowMessage("Message", response.message);
@@ -173,7 +192,7 @@ namespace SystemApp
 
         private void OnGetUserInformation(UserInformation response)
         {
-            view.InitMainPage(response.wallet.ToString(), response.fullName.ToString());
+            view.InitMainPage(GetMoney().ToString(), response.fullName.ToString());
         }
 
         private void OnGetUserInformationFail()
@@ -293,6 +312,17 @@ namespace SystemApp
             // Finish Order
             _apiServices.onFinishOrder = OnFinishOrder;
             _apiServices.onFinishOrderFail = OnFinishOrderFail;
+        }
+
+        private int GetMoney()
+        {
+            monney = PlayerPrefs.GetInt(userId, 0);
+            return monney;
+        }
+
+        private void SaveMoney(int newMoney)
+        {
+            PlayerPrefs.SetInt(userId, newMoney);
         }
     }
 }

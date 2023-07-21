@@ -100,6 +100,8 @@ MonoBehaviour:
   nameTxt: {fileID: 3881050778770084003}
   buildingTxt: {fileID: 3034020344838249415}
   priceTxt: {fileID: 9134314382835003598}
+  thisBtn: {fileID: 355327902711299624}
+  btnLable: {fileID: 1634577701269736491}
 --- !u!1 &2042632751049674947
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,41 +1,62 @@
-﻿using TMPro;
+﻿
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace Model
 {
     public class OrderItem : MonoBehaviour
     {
-        private int _indexOfOrder;
+        private string id;
         private UnityAction<int> _onClickView;
-        public UnityAction<int> _onClickSubmit;
+        public UnityAction<string, int> _onClickSubmit;
         [SerializeField] private TextMeshProUGUI typeTxt;
         [SerializeField] private TextMeshProUGUI nameTxt;
         [SerializeField] private TextMeshProUGUI buildingTxt;
         [SerializeField] private TextMeshProUGUI priceTxt;
-
-        public void InitItem(int index, UnityAction<int> onClickView, UnityAction<int> onClickSubmit,
-            string name, string building, string price
-        )
+        [SerializeField] private Button thisBtn;
+        [SerializeField] private TextMeshProUGUI btnLable;
+        private int money;
+        
+        public void InitItem(int index, string id, UnityAction<int> onClickView, UnityAction<string, int> onClickSubmit,
+            string name, string building, string price, bool isDone)
         {
             typeTxt.text = "Order: " + index;
             nameTxt.text = "Customer: " + name;
+            money = int.Parse(price);
             Debug.Log("TMT: " + name);
             buildingTxt.text = "Building: " + building;
-            priceTxt.text = "Price: " + price;
-            _indexOfOrder = index;
-            // _onClickView = onClickView;
+            priceTxt.text = "Price: " + price  + ".000 VND";;
+            this.id = id;
             _onClickSubmit = onClickSubmit;
+            if (isDone)
+            {
+                thisBtn.interactable = false;
+                btnLable.text = "Done";
+            }
+
+            // monney = int.Parse("monney");
         }
 
-        public void OnClickView()
+        public void UpdateStatus(bool isDone)
         {
-            _onClickSubmit?.Invoke(_indexOfOrder);
+            if (isDone)
+            {
+                thisBtn.interactable = false;
+                btnLable.text = "Done";
+            }
         }
+        // public void OnClickView()
+        // {
+        //     _onClickSubmit?.Invoke(id, money);
+        // }
 
         public void OnClickSubmit()
         {
-            _onClickSubmit?.Invoke(_indexOfOrder);
+            _onClickSubmit?.Invoke(id, money);
+            thisBtn.interactable = false;
+            btnLable.text = "Done";
         }
     }
 }

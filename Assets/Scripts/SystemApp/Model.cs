@@ -17,7 +17,7 @@ namespace SystemApp
                 case FakeDataType.Building:
                     return fakeDataBuilding[Random.Range(0, fakeDataBuilding.Count)];
                 case FakeDataType.Money:
-                    return Random.Range(10, 500) + ".000 VND";
+                    return Random.Range(10, 500).ToString();
                 case FakeDataType.Customer:
                     var tmp = fakeDataCustomerA[Random.Range(0, fakeDataCustomerA.Count - 1)] + " " +
                               fakeDataCustomerB[Random.Range(0, fakeDataCustomerB.Count - 1)] + " " +

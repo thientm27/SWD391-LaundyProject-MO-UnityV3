@@ -46,10 +46,14 @@ namespace SystemApp
 
         public void InitMainPage(string wallet, string userName)
         {
-            walletUserTxt.text = wallet + " VND";
+            walletUserTxt.text = wallet + ".000 VND";
             userNameTxt.text = userName;
         }
+        public void UpdateWalletDisplay(string wallet)
+        {
+            walletUserTxt.text = wallet + ".000 VND";
 
+        }
         public void CloseAnPopup(PopupName popupName)
         {
             switch (popupName)
