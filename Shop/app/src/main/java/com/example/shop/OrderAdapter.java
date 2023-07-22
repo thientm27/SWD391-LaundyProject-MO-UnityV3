@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -106,9 +107,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             private EditText editPrice;
             private AlertDialog alertDialog;
 
-
             @Override
             public void onClick(View view) {
+                order=holder.getOrderList().get(position);
+                if(order.getStatus().equalsIgnoreCase("Done")){
+                    showToast("Order have been Done");
+                    return;
+                }
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 alertDialog = builder
                         .setView(R.layout.dialog_add_price)
@@ -160,6 +165,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
             @Override
             public void onClick(View view) {
+                order=holder.getOrderList().get(position);
+                if(order.getStatus().equalsIgnoreCase("Done")){
+                    showToast("Order have been Done");
+                    return;
+                }
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 alertDialog = builder
                         .setView(R.layout.dialog_add_kg)
@@ -281,6 +291,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             totalWeight += orderD.getWeight();
         }
         return totalWeight;
+    }
+    private void showToast(String message) {
+        Toast.makeText(context.getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 }
