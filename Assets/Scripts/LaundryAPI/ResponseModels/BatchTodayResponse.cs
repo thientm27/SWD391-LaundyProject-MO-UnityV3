@@ -17,18 +17,23 @@ namespace LaundryAPI.ResponseModels
         public class ItemBatchToday
         {
             public string batchId { get; set; }
-            public object driver { get; set; }
+            public Driver driver { get; set; }
             public List<OrderInBatch> orderInBatch { get; set; }
+            public DateTime creationDate { get; set; }
+            public DateTime? modificationDate { get; set; }
             public string driverId { get; set; }
             public string type { get; set; }
+            public object fromTime { get; set; }
+            public object toTime { get; set; }
             public string status { get; set; }
-            public object date { get; set; }
         }
         public class OrderInBatch
         {
             public string orderInBatchId { get; set; }
             public object batch { get; set; }
             public object order { get; set; }
+            public DateTime? creationDate { get; set; }
+            public object modificationDate { get; set; }
             public string batchId { get; set; }
             public string orderId { get; set; }
             public string status { get; set; }

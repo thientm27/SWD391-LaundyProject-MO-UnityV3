@@ -2019,7 +2019,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 46}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &926020924
 MonoBehaviour:
@@ -2370,7 +2370,7 @@ MonoBehaviour:
   loginPassword: {fileID: 1106055932875602992}
   batchDisplay: {fileID: 8040126763696650884}
   orderDisplay: {fileID: 1790147748}
-  userProfile: {fileID: 0}
+  userProfile: {fileID: 1980977854}
   confirmFinishPopup: {fileID: 333844053}
   footerTabs:
   - {fileID: 1126509495}
@@ -3674,7 +3674,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1790147742
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4537,7 +4537,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1980977848
 RectTransform:
   m_ObjectHideFlags: 0

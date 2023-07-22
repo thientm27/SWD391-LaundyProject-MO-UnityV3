@@ -17,7 +17,7 @@ namespace LaundryAPI.Api
         // f44e51e1-d3b8-4e5b-8862-30d17cd9f1e9
         public GetOrderInBatch(List<string> myBatchId)
         {
-            ApiUrl = "api/v1/OrderInBatch/GetByID?entityId="; // update this
+            ApiUrl = "api/v1/OrderInBatch/GetListWithFilter/0/10";
             batchIds = myBatchId;
         }
 

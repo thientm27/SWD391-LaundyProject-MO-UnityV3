@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using LaudryAPI;
 using LaundryAPI.ResponseModels;
@@ -17,16 +18,19 @@ namespace SystemApp
         [SerializeField] private TMP_InputField loginPassword;
         [SerializeField] private BatchDisplay batchDisplay;
         [SerializeField] private OrderDisplay orderDisplay;
+
         [SerializeField] private UserProfile userProfile;
+
         // [SerializeField] private OrderItem demoOrderItem;
         [SerializeField] private GameObject confirmFinishPopup;
         [SerializeField] private FooterTab[] footerTabs;
 
         private BatchTodayResponse batchToday;
         private string userId;
-
         private int monney;
 
+        private string tempId;
+        private int tempMoney;
 
         //38245ee0-d03e-4cdb-9be1-40597f6b41b8 
         private void Awake()
@@ -110,7 +114,26 @@ namespace SystemApp
                 case 1:
                 {
                     // Init Order
-                    orderDisplay.InitListOrder(batchToday.items, userId);
+                    List<string> data = new List<string>();
+                    foreach (var batchToday in batchToday.items)
+                    {
+                        if (batchToday.driverId != userId)
+                        {
+                            continue;
+                        }
+
+                        if (batchToday.orderInBatch != null)
+                        {
+                            foreach (var order in batchToday.orderInBatch)
+                            {
+                                data.Add(order.batchId);
+                                // index++;
+                            }
+                        }
+                    }
+
+                    _apiServices.GetOrderInBatch(data);
+                    // orderDisplay.InitListOrder(batchToday.items, userId);
                     break;
                 }
             }
@@ -147,8 +170,6 @@ namespace SystemApp
             }
         }
 
-        private string tempId;
-        private int tempMoney;
 
         public void OnClickOpenConfirmFinishOrder(string id, int money)
         {
@@ -178,6 +199,7 @@ namespace SystemApp
         {
             confirmFinishPopup.SetActive(false);
         }
+
         private void OnClickFinishOrder(string id, int money)
         {
             if (string.IsNullOrEmpty(id))
@@ -212,7 +234,7 @@ namespace SystemApp
         private void OnGetUserInformation(UserInformation response)
         {
             view.InitMainPage(GetMoney().ToString(), response.fullName.ToString());
-            userProfile.InitUserInformation(response.fullName,response.email,response.phoneNumber);
+            userProfile.InitUserInformation(response.fullName, response.email, response.phoneNumber);
         }
 
         private void OnGetUserInformationFail()
@@ -282,8 +304,15 @@ namespace SystemApp
         public void OnClickCloseMessage()
         {
             view.CloseAnPopup(PopupName.Message);
+        }  
+        public void OnGetOrderInBatches(OrderInBatchResponse response)
+        {
+            
         }
-
+        public void OnGetOrderInBatchesFail()
+        {
+            
+        }
         #endregion
 
 
@@ -309,6 +338,9 @@ namespace SystemApp
             // Finish Order
             _apiServices.onFinishOrder = OnFinishOrder;
             _apiServices.onFinishOrderFail = OnFinishOrderFail;
+            // Finish Order
+            _apiServices.onGetOrderInBatch = OnGetOrderInBatches;
+            _apiServices.onGetOrderInBatchFail = OnGetOrderInBatchesFail;
         }
 
         private void OnDisable()
@@ -330,8 +362,12 @@ namespace SystemApp
             _apiServices.onGetUserInformation = null;
             _apiServices.onGetUserInformationFail = null;
             // Finish Order
-            _apiServices.onFinishOrder = OnFinishOrder;
-            _apiServices.onFinishOrderFail = OnFinishOrderFail;
+            _apiServices.onFinishOrder = null;
+            _apiServices.onFinishOrderFail = null;
+            //
+            
+            _apiServices.onGetOrderInBatch = null;
+            _apiServices.onGetOrderInBatchFail = null;
         }
 
         private int GetMoney()
