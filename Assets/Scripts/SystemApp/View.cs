@@ -28,11 +28,13 @@ namespace SystemApp
         [SerializeField] private TextMeshProUGUI userNameTxt;
         [SerializeField] private GameObject batchToday;
         [SerializeField] private GameObject myOrder;
+        [SerializeField] private GameObject userProfile;
 
         public void SwitchTab(int index)
         {
             batchToday.SetActive(false);
             myOrder.SetActive(false);
+            userProfile.SetActive(false);
             switch (index)
             {
                 case 0:
@@ -43,6 +45,11 @@ namespace SystemApp
                 case 1:
                 {
                     myOrder.SetActive(true);
+                    break;
+                }
+                case 2:
+                {
+                    userProfile.SetActive(true);
                     break;
                 }
             }

@@ -1,5 +1,4 @@
-﻿
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -18,16 +17,26 @@ namespace Model
         [SerializeField] private Button thisBtn;
         [SerializeField] private TextMeshProUGUI btnLable;
         private int money;
-        
-        public void InitItem(int index, string id, UnityAction<int> onClickView, UnityAction<string, int> onClickSubmit,
+
+        public void InitItem(int index, string id, UnityAction<string, int> onClickSubmit,
             string name, string building, string price, bool isDone)
         {
             typeTxt.text = "Order: " + index;
             nameTxt.text = "Customer: " + name;
-            money = int.Parse(price);
+    
             Debug.Log("TMT: " + name);
             buildingTxt.text = "Building: " + building;
-            priceTxt.text = "Price: " + price  + ".000 VND";;
+            if (string.IsNullOrEmpty(price))
+            {
+                priceTxt.text = "N/A";
+                money = 0;
+            }
+            else
+            {
+                priceTxt.text = "Price: " + price + ".000 VND";
+                money = int.Parse(price);
+            }
+
             this.id = id;
             _onClickSubmit = onClickSubmit;
             if (isDone)

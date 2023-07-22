@@ -50,7 +50,6 @@ namespace Model
                 {
                     foreach (var order in item.orderInBatch)
                     {
-           
                         Debug.Log(order.orderId);
                         Debug.Log(order.status);
                         if (isInitted)
@@ -60,10 +59,10 @@ namespace Model
                                 var obj = Instantiate(batchItemDisplay, displayContainer);
                                 var controller = obj.GetComponent<OrderItem>();
 
-                                controller.InitItem(index, order.orderId, onClickViewOrder, onClickSubmitOrder
-                                    , fakeData.GetRandomData(FakeDataType.Customer),
-                                    fakeData.GetRandomData(FakeDataType.Building),
-                                    fakeData.GetRandomData(FakeDataType.Money), order.status == "Done");
+                                controller.InitItem(index, order.orderId, onClickSubmitOrder
+                                    , "None",
+                                    "None",
+                                    "None", order.status == "Done");
                                 itemBatchList.Add(obj);
                             }
                             else // already
@@ -76,10 +75,10 @@ namespace Model
                             var obj = Instantiate(batchItemDisplay, displayContainer);
                             var controller = obj.GetComponent<OrderItem>();
 
-                            controller.InitItem(index, order.orderId, onClickViewOrder, onClickSubmitOrder
-                                , fakeData.GetRandomData(FakeDataType.Customer),
-                                fakeData.GetRandomData(FakeDataType.Building),
-                                fakeData.GetRandomData(FakeDataType.Money), order.status == "Done");
+                            controller.InitItem(index, order.orderId, onClickSubmitOrder
+                                , "None",
+                                "None",
+                                "", order.status == "Done");
                             itemBatchList.Add(obj);
                         }
 
