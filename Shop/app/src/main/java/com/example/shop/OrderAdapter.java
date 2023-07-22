@@ -83,6 +83,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.btnSubMit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                order=holder.getOrderList().get(position);
                 orderService = UnitOfWork.getOrderService();
                 Call<ObjectFinish> call = orderService.finishOrder(order.getOrderId());
                 call.enqueue(new Callback<ObjectFinish>() {
