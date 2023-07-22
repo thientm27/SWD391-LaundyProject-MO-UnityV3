@@ -5,6 +5,10 @@ namespace SystemApp
 {
     public class View : MonoBehaviour
     {
+        [Header("Avoid Banner")]
+        [SerializeField] private Canvas canvasTotal;
+
+        [SerializeField] private RectTransform[] canvas;
         [SerializeField] private GameObject popupLogin;
 
         // ERROR
@@ -49,11 +53,12 @@ namespace SystemApp
             walletUserTxt.text = wallet + ".000 VND";
             userNameTxt.text = userName;
         }
+
         public void UpdateWalletDisplay(string wallet)
         {
             walletUserTxt.text = wallet + ".000 VND";
-
         }
+
         public void CloseAnPopup(PopupName popupName)
         {
             switch (popupName)
@@ -102,6 +107,58 @@ namespace SystemApp
             messageTitle.text = title;
             messageDescription.text = description;
             popupMessage.SetActive(true);
+        }
+
+        public Rect SafeArea()
+        {
+            Rect safeArea = Screen.safeArea;
+            Rect[] cutouts = Cutouts();
+
+            if (safeArea.y == 0)
+            {
+                float posY = safeArea.height;
+                foreach (Rect rect in cutouts)
+                {
+                    if (posY > rect.y)
+                    {
+                        posY = rect.y;
+                    }
+                }
+
+                safeArea.y = Screen.height - posY;
+            }
+
+            return safeArea;
+        }
+
+        public Rect[] Cutouts()
+        {
+            return Screen.cutouts;
+        }
+
+        public void AvoidCutout()
+        {
+            var safeArea = SafeArea();
+            var cutouts = Cutouts();
+            // view.AvoidCutout(DisplayService.SafeArea(), DisplayService.Cutouts());
+            if (safeArea.y == 0)
+            {
+                float posY = safeArea.height;
+                foreach (Rect rect in cutouts)
+                {
+                    if (posY > rect.y)
+                    {
+                        posY = rect.y;
+                    }
+                }
+
+                safeArea.y = Screen.height - posY;
+            }
+
+            foreach (var item in canvas)
+            {
+                item.offsetMax = new Vector2(item.offsetMax.x, -safeArea.y);
+            }
         }
     }
 
