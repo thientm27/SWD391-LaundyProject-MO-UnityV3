@@ -19,13 +19,12 @@ namespace LaundryAPI.Api
         {
             ApiUrl =  "api/v1/Batch/GetListWithFilter/0/10";
             // Tạo ngày kết thúc là ngày hiện tại
-            startDay = DateTime.Now.ToString("yyyy-MM-dd");
+            startDay = DateTime.Now.AddDays(0).ToString("yyyy-MM-dd");
             // Tạo ngày bắt đầu là 1 tháng trước ngày kết thúc
             endDay = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
         }
 
-     
-
+        
         protected override IHttpRequest GetHttpRequest()
         {
             JSONObject data = new JSONObject();

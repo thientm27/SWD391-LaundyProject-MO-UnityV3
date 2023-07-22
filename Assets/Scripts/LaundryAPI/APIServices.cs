@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using BaseHttp.Core;
 using LaundryAPI.Api;
@@ -61,9 +62,9 @@ namespace LaudryAPI
             GetUserInformation data2 = new GetUserInformation(id);
             data2.Send(p => { onGetUserInformation?.Invoke(p); }, _ => { onGetUserInformationFail?.Invoke(); });
         }
-        public void GetOrderInBatch(string id)
+        public void GetOrderInBatch(List<string> myBatchId)
         {
-            GetOrderInBatch data2 = new GetOrderInBatch(id);
+            GetOrderInBatch data2 = new GetOrderInBatch(myBatchId);
             data2.Send(p => { onGetOrderInBatch?.Invoke(p); }, _ => { onGetOrderInBatchFail?.Invoke(); });
         }
         public void GetAllBatchOfDriver(string id)

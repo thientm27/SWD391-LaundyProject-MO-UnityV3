@@ -17,7 +17,7 @@ namespace SystemApp
         [SerializeField] private TMP_InputField loginPassword;
         [SerializeField] private BatchDisplay batchDisplay;
         [SerializeField] private OrderDisplay orderDisplay;
-        [SerializeField] private OrderItem demoOrderItem;
+        // [SerializeField] private OrderItem demoOrderItem;
         [SerializeField] private GameObject confirmFinishPopup;
         [SerializeField] private FooterTab[] footerTabs;
 
@@ -138,7 +138,7 @@ namespace SystemApp
                 {
                     _apiServices.Login(loginEmail.text, loginPassword.text);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     OnLoginFail();
                     throw;

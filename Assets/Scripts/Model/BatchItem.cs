@@ -14,7 +14,7 @@ namespace Model
         [SerializeField] private TextMeshProUGUI driveTxt;
         [SerializeField] private Button button;
 
-        public void InitItem(string type, string status, int driver, int indexOfBatch,
+        public void InitItem(string type, string timeSpan, int driver, int indexOfBatch,
             UnityAction<int> onClickRegister)
         {
             _indexOfBatch = indexOfBatch;
@@ -34,7 +34,7 @@ namespace Model
 
             
            
-            statusTxt.text = "Batch status: " + status;
+            statusTxt.text = "Time span: " + timeSpan;
             if (driver == 0)
             {
                 driveTxt.text = "Driver: " + "None";

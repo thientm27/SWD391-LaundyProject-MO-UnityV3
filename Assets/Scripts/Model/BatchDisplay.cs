@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using LaundryAPI.ResponseModels;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,6 +14,7 @@ namespace Model
         private List<GameObject> itemBatchList;
 
 
+        [Obsolete("method need to update",false)]
         public void InitListOfBatchDisplay(List<BatchTodayResponse.ItemBatchToday> items, string userId)
         {
             // CLEAR OLD
@@ -44,8 +46,9 @@ namespace Model
                 {
                     validStatus = -1;
                 }
-
+                
                 controller.InitItem(item.type, item.status, validStatus, index, onClickRegister);
+                
                 itemBatchList.Add(obj);
                 index++;
             }

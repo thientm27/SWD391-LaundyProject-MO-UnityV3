@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BaseHttp.Api;
 using BaseHttp.Core;
 using Duck.Http.Service;
@@ -7,22 +8,30 @@ using SimpleJSON;
 
 namespace LaundryAPI.Api
 {
-    public class GetOrderInBatch: HttpApi<OrderInBatchResponse>
+    public class GetOrderInBatch : HttpApi<OrderInBatchResponse>
     {
-   
         protected override string ApiUrl { get; set; }
-        private string startDay;
-        private string endDay;
+
+        private List<string> batchIds;
 
         // f44e51e1-d3b8-4e5b-8862-30d17cd9f1e9
-        public GetOrderInBatch(string id)
+        public GetOrderInBatch(List<string> myBatchId)
         {
-            ApiUrl =  "api/v1/OrderInBatch/GetByID?entityId=" + id;
+            ApiUrl = "api/v1/OrderInBatch/GetByID?entityId="; // update this
+            batchIds = myBatchId;
         }
-        
+
         protected override IHttpRequest GetHttpRequest()
         {
-            return NetworkManager.Instance.HttpGet(ApiUrl);
+            JSONObject data = new JSONObject();
+            JSONArray driverIdArray = new JSONArray();
+            foreach (string id in batchIds)
+            {
+                driverIdArray.Add(id);
+            }
+
+            data.Add("batchId", driverIdArray);
+            return NetworkManager.Instance.HttpPost(ApiUrl, data);
         }
     }
 }

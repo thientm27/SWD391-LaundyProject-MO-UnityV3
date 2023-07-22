@@ -1021,18 +1021,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SystemApp.Controller, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &510093633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1684,14 +1672,12 @@ MonoBehaviour:
   loginPassword: {fileID: 1106055932875602992}
   batchDisplay: {fileID: 8040126763696650884}
   orderDisplay: {fileID: 1790147748}
-  demoOrderItem: {fileID: 1652356452129031476}
   confirmFinishPopup: {fileID: 333844053}
   footerTabs:
   - {fileID: 1126509495}
   - {fileID: 1646726809}
   - {fileID: 116765118}
   - {fileID: 1467296307}
-  confirmPopup: {fileID: 333844053}
 --- !u!1 &1287156391
 GameObject:
   m_ObjectHideFlags: 0
@@ -5821,17 +5807,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6439259803084795645, guid: b0977f69ec7464d44b7c9522af30d9e2, type: 3}
   m_PrefabInstance: {fileID: 5742795260236131278}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1652356452129031476 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7378495846618755808, guid: b0977f69ec7464d44b7c9522af30d9e2, type: 3}
-  m_PrefabInstance: {fileID: 5742795260236131278}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 263ae8b89fb54333bbc0f0f10977fb03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1759878795853112524
 RectTransform:
   m_ObjectHideFlags: 0
