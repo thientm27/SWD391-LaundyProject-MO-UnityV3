@@ -19,7 +19,7 @@ import retrofit2.http.Query;
 public interface OrderService {
     String PATH = "Order";
 
-    @POST(PATH+"/GetListWithFilter/0/5")
+    @POST(PATH+"/GetListWithFilter/0/10")
     Call<OrderResponse> getOrdersByStoreId(@Body StoreRequestBody store);
     @GET(PATH+"/FinishOrder/{entityId}")
     Call<ObjectFinish> finishOrder(@Path("entityId") Object entityId);

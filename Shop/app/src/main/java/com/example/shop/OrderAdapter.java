@@ -74,7 +74,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.setOrderDetails(orderDetails);
         holder.setOrderList(orderList);
         // Bind data to the views
-        holder.txtAmount.setText("Amount: " + getOrderTotalAmount(payments));
+        holder.txtAmount.setText("Amount: " + getOrderTotalAmount(payments)/payments.size());
         holder.txtStatus.setText("Status: " + order.getStatus());
         holder.txtNote.setText("Note: " + order.getNote());
         // Replace "customerName" with the actual field name in your Order class representing the customer name
@@ -186,9 +186,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                                 for (OrderDetails o : orderDetails) {
                                     String idAll=o.getOrderDetailId();
                                     String status=o.getStatus();
-                                    orderSet = new OrderDetailsS(id,o.getWeight(),status);
+                                    orderSet = new OrderDetailsS(idAll,o.getWeight(),status);
                                     orderDetailsService = UnitOfWork.getOrderDetailsService();
-                                    Call<Void> call = orderDetailsService.updateKg(id,orderSet);
+                                    Call<Void> call = orderDetailsService.updateKg(o.getOrderDetailId(),orderSet);
                                     call.enqueue(new Callback<Void>() {
                                         @Override
                                         public void onResponse(Call<Void> call, Response<Void> response) {
