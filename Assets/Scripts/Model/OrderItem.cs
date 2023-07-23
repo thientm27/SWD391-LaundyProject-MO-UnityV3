@@ -14,16 +14,17 @@ namespace Model
         [SerializeField] private TextMeshProUGUI nameTxt;
         [SerializeField] private TextMeshProUGUI buildingTxt;
         [SerializeField] private TextMeshProUGUI priceTxt;
+        [SerializeField] private TextMeshProUGUI noteTxt;
         [SerializeField] private Button thisBtn;
         [SerializeField] private TextMeshProUGUI btnLable;
         private int money;
 
         public void InitItem(int index, string id, UnityAction<string, int> onClickSubmit,
-            string name, string building, string price, bool isDone)
+            string name, string building, string price, string note, bool isDone)
         {
             typeTxt.text = "Order: " + index;
             nameTxt.text = "Customer: " + name;
-    
+
             Debug.Log("TMT: " + name);
             buildingTxt.text = "Building: " + building;
             if (string.IsNullOrEmpty(price))
@@ -45,6 +46,14 @@ namespace Model
                 btnLable.text = "Done";
             }
 
+            if (string.IsNullOrEmpty(note))
+            {
+                noteTxt.text = "Note: N/A";
+            }
+            else
+            {
+                noteTxt.text = "Note: " + note;
+            }
             // monney = int.Parse("monney");
         }
 

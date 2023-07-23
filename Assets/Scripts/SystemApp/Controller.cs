@@ -187,11 +187,34 @@ namespace SystemApp
             }
             else
             {
-                _apiServices.FinishOrder(tempId); // demo
-                orderDisplay.InitListOrder(batchToday.items, userId);
+                _apiServices.FinishOrder(tempId); 
+                
+                // orderDisplay.InitListOrder(batchToday.items, userId);
                 monney += tempMoney;
                 SaveMoney(monney);
                 view.UpdateWalletDisplay(tempMoney.ToString());
+                
+                
+                // RELOAD order
+                // Init Order
+                List<string> data = new List<string>();
+                foreach (var batchToday in batchToday.items)
+                {
+                    if (batchToday.driverId != userId)
+                    {
+                        continue;
+                    }
+
+                    if (batchToday.orderInBatch != null)
+                    {
+                        foreach (var order in batchToday.orderInBatch)
+                        {
+                            data.Add(order.batchId);
+                            // index++;
+                        }
+                    }
+                }
+                _apiServices.GetOrderInBatch(data);
             }
         }
 
@@ -210,10 +233,31 @@ namespace SystemApp
             else
             {
                 _apiServices.FinishOrder(id); // demo
-                orderDisplay.InitListOrder(batchToday.items, userId);
+                // orderDisplay.InitListOrder(batchToday.items, userId);
                 monney += money;
                 SaveMoney(monney);
                 view.UpdateWalletDisplay(money.ToString());
+                
+                // RELOAD ORDER
+                List<string> data = new List<string>();
+                foreach (var batchToday in batchToday.items)
+                {
+                    if (batchToday.driverId != userId)
+                    {
+                        continue;
+                    }
+
+                    if (batchToday.orderInBatch != null)
+                    {
+                        foreach (var order in batchToday.orderInBatch)
+                        {
+                            data.Add(order.batchId);
+                            // index++;
+                        }
+                    }
+                }
+
+                _apiServices.GetOrderInBatch(data);
             }
         }
 
@@ -307,7 +351,7 @@ namespace SystemApp
         }  
         public void OnGetOrderInBatches(OrderInBatchResponse response)
         {
-            
+            orderDisplay.InitListOrderV2(response.items, userId);
         }
         public void OnGetOrderInBatchesFail()
         {

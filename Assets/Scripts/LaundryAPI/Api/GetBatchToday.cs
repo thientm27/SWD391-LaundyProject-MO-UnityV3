@@ -17,7 +17,7 @@ namespace LaundryAPI.Api
 
         public GetBatchToday()
         {
-            ApiUrl =  "api/v1/Batch/GetListWithFilter/0/10";
+            ApiUrl =  "api/v1/Batch/GetListWithFilter/0/50";
             // Tạo ngày kết thúc là ngày hiện tại
             startDay = DateTime.Now.AddDays(0).ToString("yyyy-MM-dd");
             // Tạo ngày bắt đầu là 1 tháng trước ngày kết thúc

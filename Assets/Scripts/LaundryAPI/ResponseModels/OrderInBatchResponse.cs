@@ -14,7 +14,6 @@ namespace LaundryAPI.ResponseModels
         public bool next { get; set; }
         public bool previous { get; set; }
         public List<BatchInfo> items { get; set; }
-
         public class BatchInfo
         {
             public string orderInBatchId { get; set; }
